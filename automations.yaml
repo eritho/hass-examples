@@ -1,0 +1,37 @@
+ - alias: "Lukk garasjeport"
+    initial_state: 'on'
+    hide_entity: true
+    trigger:
+      platform: state
+      entity_id: cover.garasjeport
+      to: 'open'
+      for:
+        minutes: 1
+
+    action:
+      service: notify.ios_thomasphone
+      data:
+        title: "Garasjeporten er åpen"
+        message: "Den har vært åpen i 10 minutter"
+        data:
+          push:
+            badge: 0
+            category: "garasjeport"
+          action_data:
+            entity_id: cover.garasjeport
+
+  - alias: "IOS push garasje"
+    initial_state: 'on'
+    hide_entity: true
+    trigger:
+      platform: event
+      event_type: ios.notification_action_fired
+      event_data:
+        actionName: "lukkgarasjeport"
+    action:
+    - service: cover.close_cover
+      entity_id: cover.garasjeport
+
+    - service: notify.ios_thomasphone
+      data:
+        message: "Garasjeporten er lukket"
