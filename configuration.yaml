@@ -1,0 +1,12 @@
+ios:
+  push:
+      categories:
+        - name: Garasjeport
+          identifier: 'garasjeport'
+          actions:
+            - identifier: 'lukkgarasjeport'
+              title: 'Lukk garasjeporten'
+              activationMode: 'background'
+              authenticationRequired: yes
+              destructive: yes
+              behavior: 'default'
